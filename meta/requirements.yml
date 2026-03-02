@@ -1,0 +1,2 @@
+- name: ansible-suite.thirdparty-pkg
+  src: git+https://github.com/ansible-suite/ansible-role-thirdparty-pkg.git
