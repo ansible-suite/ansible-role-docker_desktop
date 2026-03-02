@@ -1,0 +1,13 @@
+- name: Install Docker Desktop
+  ansible.builtin.import_tasks: install.yml
+
+- name: Set up data redirection mechanism
+  ansible.builtin.import_tasks: data_redirect.yml
+  when: docker_desktop_data_location is defined
+
+- name: Configure Docker environment variables
+  ansible.builtin.template:
+    src: docker-desktop-env.sh.j2
+    dest: "{{ docker_desktop_env_script_path }}"
+    mode: '644'
+  when: docker_desktop_env

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Create the new data location
+mkdir -p "{{ docker_desktop_data_location }}"
+
+# Create ~/.docker
+mkdir -p "$HOME/.docker"
+
+# Remove potential ~/.docker/desktop
+rm -rf "$HOME/.docker/desktop"
+
+# Symlink ~/.docker/desktop to the new data location
+if [[ ! -L "$HOME/.docker/desktop" ]]; then
+    ln -sTf "{{ docker_desktop_data_location }}" "$HOME/.docker/desktop"
+fi

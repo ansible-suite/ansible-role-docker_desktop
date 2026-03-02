@@ -1,0 +1,4 @@
+docker_desktop_unattended_upgrades: false
+docker_desktop_env: true
+docker_desktop_env_script_name: docker-desktop
+docker_desktop_env_host: true

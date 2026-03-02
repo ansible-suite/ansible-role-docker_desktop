@@ -1,0 +1,29 @@
+- name: Get the JSON containing the download URL
+  ansible.builtin.uri:
+    url: "{{ docker_desktop_appcast_url }}"
+    method: GET
+    return_content: true
+  register: docker_desktop_appcast_response
+
+- name: Get the dict describing the latest version
+  ansible.builtin.set_fact:
+    docker_desktop_appcast_latest: "{{ docker_desktop_appcast_response.json.Items[-1] }}"
+
+- name: Get the download URL and version from the JSON
+  ansible.builtin.set_fact:
+    docker_desktop_pkg_url: "{{ docker_desktop_appcast_latest.Artifacts | selectattr('Type', '==', 'deb') | map(attribute='URL') | first }}"
+    docker_desktop_app_version: "{{ docker_desktop_appcast_latest.AppVersion }}"
+    docker_desktop_build_number: "{{ docker_desktop_appcast_latest.BuildNumber }}"
+
+- name: Use the apt_thirdparty role to install Docker Desktop
+  ansible.builtin.import_role:
+    name: apt_thirdparty
+  vars:
+    apt_thirdparty_repo_name: docker
+    apt_thirdparty_repo_url: https://download.docker.com/linux/ubuntu
+    apt_thirdparty_repo_key_url: https://download.docker.com/linux/ubuntu/gpg
+    apt_thirdparty_repo_components: [stable]
+    apt_thirdparty_pkg: docker-desktop
+    apt_thirdparty_pkg_version: "{{ docker_desktop_version }}"
+    apt_thirdparty_pkg_url: "{{ docker_desktop_pkg_url }}"
+    apt_thirdparty_unattended_upgrades: "{{ docker_desktop_unattended_upgrades }}"

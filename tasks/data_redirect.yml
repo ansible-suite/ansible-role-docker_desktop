@@ -1,0 +1,17 @@
+- name: Copy the docker-desktop-data-redirect
+  ansible.builtin.template:
+    src: docker-desktop-data-redirect.sh.j2
+    dest: /usr/local/bin/docker-desktop-data-redirect
+    mode: '755'
+
+- name: Ensure the docker-desktop.service override dir exists
+  ansible.builtin.file:
+    path: "{{ docker_desktop_data_redirect_service_conf | dirname }}"
+    state: directory
+    mode: '755'
+
+- name: Create a systemd docker-desktop.service override to run docker-desktop-data-redirect
+  ansible.builtin.copy:
+    src: "docker-desktop.service-data-redirect.conf"
+    dest: "{{ docker_desktop_data_redirect_service_conf }}"
+    mode: '644'
