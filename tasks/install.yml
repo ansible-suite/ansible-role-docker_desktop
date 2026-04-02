@@ -17,7 +17,7 @@
 
 - name: Use the apt_thirdparty role to install Docker Desktop
   ansible.builtin.import_role:
-    name: ansible-suite.thirdparty-pkg
+    name: ansible-suite.apt_thirdparty
   vars:
     apt_thirdparty_repo_name: docker
     apt_thirdparty_repo_url: https://download.docker.com/linux/ubuntu
