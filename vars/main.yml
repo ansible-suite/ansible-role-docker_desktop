@@ -2,4 +2,3 @@ docker_desktop_appcast_url: https://desktop.docker.com/linux/main/amd64/appcast.
 docker_desktop_version: "{{ docker_desktop_app_version }}-{{ docker_desktop_build_number }}"
 docker_desktop_data_redirect_service_conf: /etc/systemd/user/docker-desktop.service.d/location-redirect.conf
 docker_desktop_env_script_path: /etc/profile.d/{{ docker_desktop_env_script_name }}.sh
-
