@@ -1,0 +1,5 @@
+- name: Install Docker Desktop
+  hosts: all
+  become: true
+  roles:
+    - ansible-suite.docker_desktop

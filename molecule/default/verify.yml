@@ -1,0 +1,9 @@
+- name: Verify Docker Desktop is installed
+  hosts: all
+  tasks:
+    - name: Gather package facts
+      ansible.builtin.package_facts:
+
+    - name: Assert Docker Desktop is installed
+      ansible.builtin.assert:
+        that: "'docker-desktop' in ansible_facts.packages"
