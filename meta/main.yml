@@ -1,3 +1,6 @@
 galaxy_info:
-  description: An Ansible role for installing Docker Desktop
   author: ansible-suite
+  role_name: docker_desktop
+  description: An Ansible role for installing Docker Desktop
+  license: MIT
+  min_ansible_version: "2.16"
